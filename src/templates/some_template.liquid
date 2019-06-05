@@ -1,0 +1,23 @@
+{% comment %} capture links prop of a particular linklist -- in an interable way {% endcomment %}
+  {%- assign iterable_linklist_links = linklists[some_linklist_identifier].links -%}
+  
+  
+  {% comment %} capture links prop of the same linklist -- in a printable way {% endcomment %}
+  {%- assign printable_linklist_links = linklists[mod_navlist].links | map: 'object' -%}
+  {% comment %} print links prop {% endcomment %}
+  {% include 'logger' with printable_linklist_links %}
+  {% comment %} unset var {% endcomment %}
+  {%- assign printable_linklist_links = nil %}
+  
+
+{% comment %} for each item/prop of the links prop... {% endcomment %}
+  {%- for item in iterable_linklist_links -%}
+
+    {% comment %} capture item links -- in a printable way {% endcomment %}
+    {%- assign printable_item_links = item.links | map: 'object' -%}
+    {% comment %} print item links {% endcomment %}
+    {%- include 'logger' with printable_item_links -%}
+    {% comment %} unset item links {% endcomment %}
+    {%- assign printable_item_links = nil -%}
+
+  {%- endfor -%}
